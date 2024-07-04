@@ -1,10 +1,14 @@
 import os
 import shutil
+import numpy as np
 
 # 定义源和目标目录
-source_root = r'I:\Dataset\3DPW\3DPW_vid2e\imageFiles'
-target_root = r'I:\Dataset\3DPW\3DPW_vid2e\image_DVSVoltmeter'
-
+source_root = r'E:\DVS-SIM\src\imageFiles'
+target_root = r'E:\DVS-SIM\src\image_DVSVoltmeter'
+# temp_0 = np.load('G:\\Dataset\\3DPW\\3DPW_vid2e\\events\\courtyard_arguing_00\\0000000000.npz', allow_pickle=True)
+# temp_7283 = np.load('G:\\Dataset\\3DPW\\3DPW_vid2e\\events\\courtyard_arguing_00\\0000007283.npz', allow_pickle=True)
+# data = np.loadtxt('E:\\DVS-SIM\\src\\events\\courtyard_arguing_00.txt')
+# print('test')
 
 def process_sequence(sequence_path, target_sequence_path):
     # 确保目标目录存在
@@ -34,7 +38,7 @@ def process_sequence(sequence_path, target_sequence_path):
     info_file_path = os.path.join(target_sequence_path, 'info.txt')
     with open(info_file_path, 'w') as info_file:
         for img_file, timestamp in zip(img_files, timestamps):
-            info_file.write(f'./data_samples/interp/{os.path.basename(sequence_path)}/{img_file} {timestamp:012d}\n')
+            info_file.write(f'E:/DVS-SIM/src/image_DVSVoltmeter/{os.path.basename(sequence_path)}/{img_file} {timestamp:012d}\n')
 
 
 # 遍历所有序列文件夹并处理

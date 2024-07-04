@@ -70,6 +70,16 @@ def process_dir(cfg, file_info, video_name):
         event = sim.generate_events(image, timestamp_us)
 
         if event is not None:
+
+            # 对应ESIM中的裁剪
+            height, width = image.shape[0], image.shape[1]
+            if (height == 480) and (width == 270):
+                event = event[(event[:, 1] >= 7) & (event[:, 1] < 263)]      # x轴
+                event[:, 1] -= 7
+            elif (height == 270) and (width == 480):
+                event = event[(event[:, 2] >= 7) & (event[:, 2] < 263)]     # y轴
+                event[:, 2] -= 7
+
             events.append(event)
             num_events += event.shape[0]
             num_on_events += np.sum(event[:, -1] == 1)

@@ -8,14 +8,20 @@ conda install tqdm=4.49.0
 conda install -c conda-forge opencv=4.5.1.48
 
 # 仿真过程
-generate_data.py: 从源目录(I:\Dataset\3DPW\3DPW_vid2e\imageFiles)复制PNG图像到目标目录(I:\Dataset\3DPW\3DPW_vid2e\image_DVSVoltmeter)，
+1.generate_data.py: 从源目录(E:\DVS-SIM\src\imageFiles)复制PNG图像到目标目录(E:\DVS-SIM\src\image_DVSVoltmeter)，
 并生成包含每个图像路径和时间戳的info.txt文件。
-改src/config.py里面的目录， main.py生成事件
+2.改src/config.py里面的目录， main.py生成事件(E:/DVS-SIM/src/events/)
+3.data_split.py：将事件聚合以对应标签，且按照train_val_test划分数据
+4.copy_data.py:按照标签复制data(多人情况)
+5.extract_dict：统计每个stamp的事件数，并且记录图像尺寸
+
+# 已经执行完的， 把ESIM的复制过来
+generate_label.py：生成标签, 这步是ESIM的，替换成把label文件夹直接复制到E:\DVS-SIM\Event3DPW_Noise文件夹下
+generate_rgb.py:生成与事件同尺寸的RGB图像，这步是ESIM的，替换成把rgb_data文件夹直接复制到E:\DVS-SIM\Event3DPW_Noise文件夹下
+gen_test_seq.py:生成test序列名称，这步是ESIM的，替换成把seqname.txt直接复制到E:\DVS-SIM\Event3DPW_Noise文件夹下
+
 
 [esim里面接下来的流程]
-generate_label.py：生成标签
-copy_data.py:按照标签复制data
-data_split.py：将事件聚合以对应标签，且按照train_val_test划分数据
-extract_dict：统计每个stamp的事件数，并且记录图像尺寸
-generate_rgb.py:生成与事件同尺寸的RGB图像
-gen_test_seq.py:生成test序列名称
+
+
+

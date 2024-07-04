@@ -32,9 +32,10 @@ elif cfg.SENSOR.CAMERA_TYPE == 'DVS240':
 
 # Directories
 __C.DIR                                 = edict()
-__C.DIR.IN_PATH = 'data_samples/interp/'
-__C.DIR.OUT_PATH = 'data_samples/output/'
-
+# __C.DIR.IN_PATH = 'data_samples/interp/'
+# __C.DIR.OUT_PATH = 'data_samples/output/'
+__C.DIR.IN_PATH = 'E:/DVS-SIM/src/image_DVSVoltmeter/'
+__C.DIR.OUT_PATH = 'E:/DVS-SIM/src/events/'
 
 # Visualize
 __C.Visual                              = edict()

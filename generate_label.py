@@ -6,7 +6,7 @@ import cv2
 
 if __name__ == '__main__':
 
-    Dataset_dir = "I:/Dataset/3DPW"
+    Dataset_dir = "E:/DVS-SIM/src"
     label_dir = Dataset_dir + "/3DPW_origin/sequenceFiles"
     output_dir = Dataset_dir + "/Event3DPW"
     upsampled_dir = Dataset_dir + "/3DPW_vid2e/imageFiles_Upsample"
