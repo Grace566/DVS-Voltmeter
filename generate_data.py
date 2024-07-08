@@ -1,6 +1,7 @@
 import os
 import shutil
 import numpy as np
+from tqdm import tqdm
 
 # 定义源和目标目录
 source_root = r'E:\DVS-SIM\src\imageFiles'
@@ -42,7 +43,8 @@ def process_sequence(sequence_path, target_sequence_path):
 
 
 # 遍历所有序列文件夹并处理
-for sequence_folder in os.listdir(source_root):
+for sequence_folder in tqdm(os.listdir(source_root), desc='Processing folders'):
+# for sequence_folder in os.listdir(source_root):
     sequence_path = os.path.join(source_root, sequence_folder)
     target_sequence_path = os.path.join(target_root, sequence_folder)
     if os.path.isdir(sequence_path):

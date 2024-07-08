@@ -7,13 +7,33 @@ conda install numpy>=1.20.1
 conda install tqdm=4.49.0
 conda install -c conda-forge opencv=4.5.1.48
 
+# cmd
+cd D:\MyProject\DVS-Voltmeter
+conda activate dvs-sim
+python generate_data.py
+python main.py
+
+
+python data_split.py
+
+
+python copy_data.py
+
+python extract_dict.py
+
+python generate_multidim_frame_data.py 【正在运行】
+
+echo finish
+
+
 # 仿真过程
 1.generate_data.py: 从源目录(E:\DVS-SIM\src\imageFiles)复制PNG图像到目标目录(E:\DVS-SIM\src\image_DVSVoltmeter)，
 并生成包含每个图像路径和时间戳的info.txt文件。
 2.改src/config.py里面的目录， main.py生成事件(E:/DVS-SIM/src/events/)
 3.data_split.py：将事件聚合以对应标签，且按照train_val_test划分数据
 4.copy_data.py:按照标签复制data(多人情况)
-5.extract_dict：统计每个stamp的事件数，并且记录图像尺寸
+5.extract_dict.py：统计每个stamp的事件数，并且记录图像尺寸
+6.generate_multidim_frame_data.py: 生成EF
 
 # 已经执行完的， 把ESIM的复制过来
 generate_label.py：生成标签, 这步是ESIM的，替换成把label文件夹直接复制到E:\DVS-SIM\Event3DPW_Noise文件夹下

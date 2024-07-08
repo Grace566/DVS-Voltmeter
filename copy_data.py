@@ -4,6 +4,7 @@ import pickle as pkl
 import numpy as np
 import cv2
 import glob
+from tqdm import tqdm
 
 
 if __name__ == '__main__':
@@ -17,9 +18,10 @@ if __name__ == '__main__':
     #     if 'courtyard_arguing_00' in filename:
     #         count += 1
 
-    Dataset_dir = "E:/DVS-SIM/Event3DPW_Noise"
+    Dataset_dir = "G:/Dataset/DVS-SIM/Event3DPW_Noise"
 
-    for file in os.listdir(Dataset_dir):
+    for file in tqdm(os.listdir(Dataset_dir), desc='Processing files'):
+    # for file in os.listdir(Dataset_dir):
         labelpath = os.path.join(Dataset_dir, file, 'label')
         datapath = os.path.join(Dataset_dir, file, 'data')
 
