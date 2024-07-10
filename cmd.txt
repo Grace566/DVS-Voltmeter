@@ -25,6 +25,10 @@ python generate_multidim_frame_data.py
 
 echo finish
 
+[3090TI]
+cd E:\PythonProject\DVS-Voltmeter
+conda activate EPPclone
+python generate_multidim_frame_data.py
 
 # 仿真过程
 1.generate_data.py: 从源目录(E:\DVS-SIM\src\imageFiles)复制PNG图像到目标目录(E:\DVS-SIM\src\image_DVSVoltmeter)，

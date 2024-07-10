@@ -22,29 +22,33 @@ def multidim_evframe_gen(data, imageH=260, imageW=346):
         img_neg = np.zeros(img_size, np.int)
         sae_pos = np.zeros(img_size, np.float32)
         sae_neg = np.zeros(img_size, np.float32)
+        cnt_sae = np.zeros(img_size, np.float32)
         cnt = np.zeros(img_size, np.float32)
         sae = np.zeros(img_size, np.float32)
-        for idx in range(num_events):
-            coordx = int(x[idx])
-            coordy = int(y[idx])
-            if p[idx] > 0:
-                img_pos[coordy, coordx] += 1  # count events
-                sae_pos[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
-            else:
-                img_neg[coordy, coordx] += 1
-                sae_neg[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
-            cnt[coordy, coordx] += 1
-            sae[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
+        # for idx in range(num_events):
+        #     coordx = int(x[idx])
+        #     coordy = int(y[idx])
+        #     if p[idx] > 0:
+        #         img_pos[coordy, coordx] += 1  # count events
+        #         sae_pos[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
+        #     else:
+        #         img_neg[coordy, coordx] += 1
+        #         sae_neg[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
+        #     cnt[coordy, coordx] += 1
+        #     sae[coordy, coordx] = np.exp(-(t_ref - t[idx]) / tau)
 
-        cnt_sae = np.multiply(cnt, sae)
+        # 使用np.add.at来避免for循环
+        np.add.at(cnt, (y.astype(int), x.astype(int)), 1)
 
-        img_pos = normalizeImage3Sigma(img_pos, imageH=imageH, imageW=imageW)
-        img_neg = normalizeImage3Sigma(img_neg, imageH=imageH, imageW=imageW)
-        sae_pos = normalizeImage3Sigma(sae_pos, imageH=imageH, imageW=imageW)
-        sae_neg = normalizeImage3Sigma(sae_neg, imageH=imageH, imageW=imageW)
-        cnt_sae = normalizeImage3Sigma(cnt_sae, imageH=imageH, imageW=imageW)
+        # cnt_sae = np.multiply(cnt, sae)
+        #
+        # img_pos = normalizeImage3Sigma(img_pos, imageH=imageH, imageW=imageW)
+        # img_neg = normalizeImage3Sigma(img_neg, imageH=imageH, imageW=imageW)
+        # sae_pos = normalizeImage3Sigma(sae_pos, imageH=imageH, imageW=imageW)
+        # sae_neg = normalizeImage3Sigma(sae_neg, imageH=imageH, imageW=imageW)
+        # cnt_sae = normalizeImage3Sigma(cnt_sae, imageH=imageH, imageW=imageW)
         cnt = normalizeImage3Sigma(cnt, imageH=imageH, imageW=imageW)
-        sae = normalizeImage3Sigma(sae, imageH=imageH, imageW=imageW)
+        # sae = normalizeImage3Sigma(sae, imageH=imageH, imageW=imageW)
 
         md_evframe = np.concatenate((img_pos[:, :, np.newaxis], img_neg[:, :, np.newaxis],
                                      sae_pos[:, :, np.newaxis], sae_neg[:, :, np.newaxis],
@@ -118,9 +122,9 @@ def normalizeImage3Sigma(image, imageH=260, imageW=346):
 # # path of valid data
 # root_valid_data_dir = '/mnt1/yinxiaoting/Event3DPW/test/'
 # path of train data
-root_train_data_dir = 'G:/Dataset//DVS-SIM/Event3DPW_Noise/train/'
+root_train_data_dir = 'F:/Dataset/Event3DPW_Noise/train/'
 # path of valid data
-root_valid_data_dir = 'G:/Dataset//DVS-SIM/Event3DPW_Noise/test/'
+root_valid_data_dir = 'F:/Dataset/Event3DPW_Noise/test/'
 
 root_data_dir = root_train_data_dir + 'data//'
 out_frame_dir = root_train_data_dir + 'multidim_frame_data//'
@@ -129,14 +133,19 @@ if not os.path.exists(out_frame_dir):
 root_size_dir=root_train_data_dir + 'EventSize.npy'
 
 dvs_frames = sorted(glob.glob(os.path.join(root_data_dir, "*.npy")))
-dvs_frames = dvs_frames[21756:]     # 从这断的
+# dvs_frames = dvs_frames[21756:]     # 从这断的
 EventSize = np.load(root_size_dir, allow_pickle=True).item()
 
 print('train data ...')
 pbar = tqdm(total=len(dvs_frames))
 for file_dir in dvs_frames:
     data_name = os.path.basename(file_dir).split('.')[0]
-    try:
+    if data_name == 'outdoors_climbing_02_000394_0':
+        sensor_sizeW = 256
+        sensor_sizeH = 480
+        data = np.zeros((sensor_sizeH, sensor_sizeW, 7)).astype(np.uint8)
+        np.save(out_frame_dir + data_name + '.npy', data)
+    else:
         data = np.load(file_dir)
         sensor_sizeW = EventSize[(data_name + '.npy')][1]
         sensor_sizeH = EventSize[(data_name + '.npy')][0]
@@ -145,11 +154,11 @@ for file_dir in dvs_frames:
 
         np.save(out_frame_dir + data_name + '.npy', data)
 
-    except:     #只有'outdoors_climbing_02_000394_0' 没有eventsize
-        sensor_sizeW = 256
-        sensor_sizeH = 480
-        data = np.zeros((sensor_sizeH, sensor_sizeW, 7)).astype(np.uint8)
-        np.save(out_frame_dir + data_name + '.npy', data)
+    # except:     #只有'outdoors_climbing_02_000394_0' 没有eventsize
+    #     sensor_sizeW = 256
+    #     sensor_sizeH = 480
+    #     data = np.zeros((sensor_sizeH, sensor_sizeW, 7)).astype(np.uint8)
+    #     np.save(out_frame_dir + data_name + '.npy', data)
 
     pbar.update(1)
 
@@ -170,20 +179,13 @@ pbar = tqdm(total=len(dvs_frames))
 for file_dir in dvs_frames:
    data_name = os.path.basename(file_dir).split('.')[0]
 
-   try:
-       data = np.load(file_dir)
-       sensor_sizeW = EventSize[(data_name + '.npy')][1]
-       sensor_sizeH = EventSize[(data_name + '.npy')][0]
-       data[:, 0] -= 1
-       data = multidim_evframe_gen(data.T, imageH=sensor_sizeH, imageW=sensor_sizeW)
+   data = np.load(file_dir)
+   sensor_sizeW = EventSize[(data_name + '.npy')][1]
+   sensor_sizeH = EventSize[(data_name + '.npy')][0]
+   data[:, 0] -= 1
+   data = multidim_evframe_gen(data.T, imageH=sensor_sizeH, imageW=sensor_sizeW)
 
-       np.save(out_frame_dir + data_name + '.npy', data)
-
-   except:
-       sensor_sizeW = EventSize[(data_name + '.npy')][1]
-       sensor_sizeH = EventSize[(data_name + '.npy')][0]
-       data = np.zeros((sensor_sizeH, sensor_sizeW, 7)).astype(np.uint8)
-       np.save(out_frame_dir + data_name + '.npy', data)
+   np.save(out_frame_dir + data_name + '.npy', data)
 
    pbar.update(1)
 
