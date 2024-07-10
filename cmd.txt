@@ -21,7 +21,7 @@ python copy_data.py
 
 python extract_dict.py
 
-python generate_multidim_frame_data.py 【正在运行】
+python generate_multidim_frame_data.py
 
 echo finish
 
@@ -34,6 +34,7 @@ echo finish
 4.copy_data.py:按照标签复制data(多人情况)
 5.extract_dict.py：统计每个stamp的事件数，并且记录图像尺寸
 6.generate_multidim_frame_data.py: 生成EF
+7.Indices_to_use.npy用原来的， 复制过来
 
 # 已经执行完的， 把ESIM的复制过来
 generate_label.py：生成标签, 这步是ESIM的，替换成把label文件夹直接复制到E:\DVS-SIM\Event3DPW_Noise文件夹下
