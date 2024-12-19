@@ -34,8 +34,14 @@ elif cfg.SENSOR.CAMERA_TYPE == 'DVS240':
 __C.DIR                                 = edict()
 # __C.DIR.IN_PATH = 'data_samples/interp/'
 # __C.DIR.OUT_PATH = 'data_samples/output/'
-__C.DIR.IN_PATH = 'E:/DVS-SIM/src/image_DVSVoltmeter/'
-__C.DIR.OUT_PATH = 'E:/DVS-SIM/src/events/'
+# __C.DIR.IN_PATH = 'E:/DVS-SIM/src/image_DVSVoltmeter/'
+# __C.DIR.OUT_PATH = 'E:/DVS-SIM/src/events/'
+# __C.DIR.IN_PATH = 'F:/Dataset/ZJU-MoCap_pre/CoreView_386/Src_Img/'
+# __C.DIR.OUT_PATH = 'F:/Dataset/ZJU-MoCap_pre/CoreView_386/events/'
+__C.DIR.IN_PATH = 'I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/Ori/rgb_aperture'
+__C.DIR.OUT_PATH = 'I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/Ori/exposure_events'
+# __C.DIR.IN_PATH = 'I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/LL0.3/rgb_aperture'
+# __C.DIR.OUT_PATH = 'I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/LL0.3/exposure_events'
 
 # Visualize
 __C.Visual                              = edict()

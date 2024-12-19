@@ -225,6 +225,11 @@ def event_generation(ep_on, ep_off, c, sigma, delta_vd_legacy, start_t, end_t, x
     assert ep_on.shape == delta_vd_legacy.shape
     delta_vd_legacy = delta_vd_legacy.double()
 
+    # # Debug
+    c /= 4
+    # ep_on /= 2
+    # ep_off /= 2
+
     if x is None:
         assert y is None  # stands for 2 dim tensors
         assert len(ep_on.shape) == 2

@@ -5,8 +5,14 @@ conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=1
 conda install easydict=1.9
 conda install numpy>=1.20.1
 conda install tqdm=4.49.0
-conda install -c conda-forge opencv=4.5.1.48
+conda install -c conda-forge opencv=4.5.1.48        (4090上)
+pip install opencv-python       （3090Ti）
+pip install pillow       （3090Ti）
 
+
+！！！注意simulator_utils.py中229行修改了，用于eventnerf合成曝光数据 以后记得改回来   todo
+
+#################################### Event3DPW_Noise,用DVS-Voltmeter ####################################
 # cmd
 cd D:\MyProject\DVS-Voltmeter
 conda activate dvs-sim
@@ -47,6 +53,65 @@ gen_test_seq.py:生成test序列名称，这步是ESIM的，替换成把seqname.
 
 
 [esim里面接下来的流程]
+
+
+#################################### EventNeRF, 用DVS-Voltmeter ####################################
+1.生成info.txt文件(假设总光圈变化时间为0.25s，仿真步数为100， fps为 100/0.25=400)
+python generate_EventNeRF.py
+2. 改src/config.py里面的目录， main.py生成事件(I:/Dataset/EventNeRF/data/nerf/chair/train/exposure_events)
+cd E:\PythonProject\DVS-Voltmeter
+conda activate dvs_voltmeter
+python main.py
+
+七个序列一起
+python main_batch.py
+
+3. 批量将txt存成npy文件
+txt2npy_folder.py
+
+python txt2npy_folder.py
+
+4. 事件可视化
+vis_npy
+5. mp4转gif
+ffmpeg -i H:\Dataset\EventNeRF\chair\train\Exposure\Ori\events.mp4 -vf "fps=30,scale=346x260:flags=lanczos" -c:v gif H:\Dataset\EventNeRF\chair\train\Exposure\Ori\output.gif
+ffmpeg -i D:\研究生\博四上\组会ppt\1_5.mp4 -vf "fps=30,scale=346x260:flags=lanczos" -c:v gif D:\研究生\博四上\组会ppt\output.gif
+
+
+
+cd E:\PythonProject\DVS-Voltmeter
+conda activate dvs_voltmeter
+python main_batch.py
+python txt2npy_folder.py
+echo finish
+
+#################################### EventNeRF低光照, 用DVS-Voltmeter ####################################
+1.生成info.txt文件(假设总光圈变化时间为为0.25s，仿真步数为100， fps为 100/0.25=400)
+python generate_EventNeRF_LL.py
+2. 改src/config.py里面的目录， main.py生成事件(I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/LL0.3/rgb_aperture)
+cd E:\PythonProject\DVS-Voltmeter
+conda activate dvs_voltmeter
+python main.py
+
+七个序列一起
+python main_batch.py
+
+3. 批量将txt存成npy文件
+txt2npy_folder_LL.py
+
+
+#################################### 合成’1‘视角为事件的event-ZJU-MoCap数据集,用DVS-Voltmeter ####################################
+1.查看原视频fps，得到25fps
+python get_fps.py
+2.generate_ZJUMoCap.py: 从源目录(F:\Dataset\ZJU-MoCap_pre\CoreView_386\1)复制PNG图像到目标目录(F:\Dataset\ZJU-MoCap_pre\CoreView_386\Src_Img)，
+并生成包含每个图像路径和时间戳的info.txt文件。
+python generate_ZJUMoCap.py
+3.改src/config.py里面的目录， main.py生成事件(F:/Dataset/ZJU-MoCap_pre/CoreView_386/events/)
+cd E:\PythonProject\DVS-Voltmeter
+conda activate dvs_voltmeter
+python main.py
+4. txt2npy.py,将txt存成npy文件
+
 
 
 
