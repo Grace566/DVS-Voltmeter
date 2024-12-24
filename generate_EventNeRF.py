@@ -2,7 +2,7 @@ import os
 from tqdm import tqdm
 
 # 设定帧率 (FPS)
-fps = 4000  # 33  # 可以根据实际情况调整FPS
+fps = 400  # 33  # 可以根据实际情况调整FPS
 
 # 目标文件夹路径（这里假设你需要处理多个 seq）
 # base_path = r'I:\Dataset\EventNeRF\data\nerf'  # 这是基本路径

@@ -51,9 +51,9 @@ def batch_convert_txt_to_npy(seq, base_path):
 # 示例使用
 # base_path = r"I:\Dataset\EventNeRF\data\nerf"  # 基础路径
 base_path = "H:\\Dataset\\EventNeRF\\"
-# seq_list = ["chair"]
+seq_list = ["lego"]
 # seq_list = ["drums", "ficus", "hotdog", "lego", "materials", "mic"]
-seq_list = ["chair", "drums", "ficus", "hotdog", "lego", "materials", "mic"]  # 7个seq文件夹
+# seq_list = ["chair", "drums", "ficus", "hotdog", "lego", "materials", "mic"]  # 7个seq文件夹
 
 # 批量处理每个 seq
 # for seq in seq_list:

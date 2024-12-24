@@ -58,27 +58,48 @@ gen_test_seq.py:生成test序列名称，这步是ESIM的，替换成把seqname.
 #################################### EventNeRF, 用DVS-Voltmeter ####################################
 1.生成info.txt文件(假设总光圈变化时间为0.25s，仿真步数为100， fps为 100/0.25=400)
 python generate_EventNeRF.py
+
 2. 改src/config.py里面的目录， main.py生成事件(I:/Dataset/EventNeRF/data/nerf/chair/train/exposure_events)
+注意： 这步是一开始手动调参尝试的，后面舍弃了，用的是步骤6和7
+！ 修改了simuylator_utils.py 229 行 c /= 4
 cd E:\PythonProject\DVS-Voltmeter
 conda activate dvs_voltmeter
 python main.py
-
 七个序列一起
 python main_batch.py
 
 3. 批量将txt存成npy文件
 txt2npy_folder.py
-
 python txt2npy_folder.py
 
 4. 事件可视化
 vis_npy
+
 5. mp4转gif
 ffmpeg -i H:\Dataset\EventNeRF\chair\train\Exposure\Ori\events.mp4 -vf "fps=30,scale=346x260:flags=lanczos" -c:v gif H:\Dataset\EventNeRF\chair\train\Exposure\Ori\output.gif
 ffmpeg -i D:\研究生\博四上\组会ppt\1_5.mp4 -vf "fps=30,scale=346x260:flags=lanczos" -c:v gif D:\研究生\博四上\组会ppt\output.gif
+ffmpeg -i D:\研究生\博四上\组会ppt\RGB_Human_20sec.mp4 -vf "fps=30,scale=512x512:flags=lanczos" -c:v gif D:\研究生\博四上\组会ppt\RGB_Human_20sec.gif
+ffmpeg -i D:\研究生\博四上\组会ppt\RGB_Input_30s.mp4 -vf "fps=30,scale=512x512:flags=lanczos" -c:v gif D:\研究生\博四上\组会ppt\RGB_Input_30s.gif
+
+6. 按照不同的alpha值， gamma值批量生成事件
+还是用main_batch.py，但里面调用的不是main.py，而是main_try_alpha.py
+尝试不同c值，gamma值，使每个序列第一张与真值PSNR最接近
+具体如下：
+        alpha      gamma      PSNR
+chair:  2.5         1.9      43.71          (这组实际用的是alpha=4, gamma=1.9，PSNR值差不多也是43-44)
+drums:  2.3         1.9      40.04
+ficus:  1.5         1.9      41.55
+hotdog: 3.3         1.9      44.20
+lego:   2.3         1.9      34.04
+materials:2.1       1.9      38.97
+mic:    2.1         1.9      43.12
 
 
+7. 批量生成
+还是用main_batch.py，但里面调用的不是main.py，而是main_EventNeRF.py
 
+
+【正在运行的】
 cd E:\PythonProject\DVS-Voltmeter
 conda activate dvs_voltmeter
 python main_batch.py

@@ -52,9 +52,12 @@ class EventSim(object):
         self.baseFrame = None
         self.t_previous = None  # time of previous frame
 
+    # def generate_events(
+    #         self, new_frame: np.ndarray,
+    #         t_frame: int) -> np.ndarray:
     def generate_events(
             self, new_frame: np.ndarray,
-            t_frame: int) -> np.ndarray:
+            t_frame: int, alpha: float = 1.0) -> np.ndarray:
         """
         Notes:
             Compute events in new frame.
@@ -103,7 +106,7 @@ class EventSim(object):
         # Event Generation!
         e_t, e_x, e_y, e_p, e_dvd = event_generation(self.thres_on, self.thres_off,
                                                      mu, var,
-                                                     self.delta_vd_res, self.t_now, t_frame)
+                                                     self.delta_vd_res, self.t_now, t_frame, alpha=alpha)
         if e_t.shape[0] > 0:
             e_t = torch.round(e_t).int()
             event_tensor = torch.stack([e_t, e_x, e_y, e_p], dim=1)

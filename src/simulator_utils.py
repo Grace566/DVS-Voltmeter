@@ -219,16 +219,21 @@ def ig_prob_a_b_NC(a, b, lamb, mu, h: int = 4):
     return out
 
 
-def event_generation(ep_on, ep_off, c, sigma, delta_vd_legacy, start_t, end_t, x=None, y=None):
+def event_generation(ep_on, ep_off, c, sigma, delta_vd_legacy, start_t, end_t, x=None, y=None, alpha=1.0):
     assert ep_on.shape == ep_off.shape
     assert ep_on.shape == c.shape
     assert ep_on.shape == delta_vd_legacy.shape
     delta_vd_legacy = delta_vd_legacy.double()
 
     # # Debug
-    c /= 4
-    # ep_on /= 2
-    # ep_off /= 2
+    # c /= 4
+    c /= alpha
+    # c /= 0.7
+
+    # sigma *= 10
+    # ep_on = 0.9*ep_on
+    # ep_off = 0.9*ep_off
+    # delta_vd_legacy = 0.9*delta_vd_legacy
 
     if x is None:
         assert y is None  # stands for 2 dim tensors
