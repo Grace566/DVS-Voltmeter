@@ -109,7 +109,7 @@ echo finish
 #################################### EventNeRF低光照, 用DVS-Voltmeter ####################################
 1.生成info.txt文件(假设总光圈变化时间为为0.25s，仿真步数为100， fps为 100/0.25=400)
 python generate_EventNeRF_LL.py
-2. 改src/config.py里面的目录， main.py生成事件(I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/LL0.3/rgb_aperture)
+2. 改src/config.py里面的目录， main.py生成事件(I:/Dataset/EventNeRF/data/nerf/chair/train/Exposure/LL0.3/rgb_aperture)  （2，3步骤会产生中间文件，废弃掉.用4）
 cd E:\PythonProject\DVS-Voltmeter
 conda activate dvs_voltmeter
 python main.py
@@ -120,6 +120,15 @@ python main_batch.py
 3. 批量将txt存成npy文件
 txt2npy_folder_LL.py
 
+4. 批量生成
+main_LL.py
+
+#################################### EventNeRF局部过曝, 用DVS-Voltmeter ####################################
+1.生成info.txt文件(假设总光圈变化时间为为0.25s，仿真步数为100， fps为 100/0.25=400)
+python generate_EventNeRF_LL.py 修改第16行代码
+2. main_LL.py修改base_input_dir和base_output_dir
+3. 处理之后整体亮度偏暗，线性缩放——不用了
+OverExp_adjust_brightness
 
 #################################### 合成’1‘视角为事件的event-ZJU-MoCap数据集,用DVS-Voltmeter ####################################
 1.查看原视频fps，得到25fps
