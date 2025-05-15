@@ -47,6 +47,9 @@ __C.DIR.OUT_PATH = 'H:/Dataset/EventNeRF/chair/train/Exposure/LL0.25/exposure_ev
 # __C.DIR.IN_PATH = 'H:/Dataset/EventNeRF/drums/train/Exposure/Ori/rgb_aperture'
 # __C.DIR.OUT_PATH = 'H:/Dataset/EventNeRF/drums/train/Exposure/Ori/exposure_events'
 
+__C.DIR.DATASET_ROOT = "H:/Dataset/ZJU-MoCap_pre"
+
+
 # Visualize
 __C.Visual                              = edict()
 __C.Visual.FRAME_STEP = 5

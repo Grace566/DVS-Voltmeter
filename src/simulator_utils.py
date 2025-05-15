@@ -227,7 +227,7 @@ def event_generation(ep_on, ep_off, c, sigma, delta_vd_legacy, start_t, end_t, x
 
     # # Debug
     # c /= 4
-    c /= alpha
+    # c /= alpha    # 用于eventnerf合成曝光数据
     # c /= 0.7
 
     # sigma *= 10
