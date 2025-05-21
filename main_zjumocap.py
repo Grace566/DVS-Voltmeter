@@ -44,6 +44,10 @@ def process_sequence(cfg, seq):
     Args:
         cfg: 配置对象，需包含Dataset_dir参数
         seq: 当前处理的序列名称
+
+    Returns:
+        events: np.ndarray if any events, else None
+                [N, 4], each row contains [timestamp (normalized by image frame time), x cordinate, y cordinate, sign of event]
     """
     # 设置输入输出路径
     img_dir = os.path.join(cfg.DIR.DATASET_ROOT, seq, 'Src_Img', '1')
@@ -84,26 +88,6 @@ def process_sequence(cfg, seq):
         image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
         if image is None:
             raise ValueError(f"无法读取图像 {img_path}")
-
-        # events = sim.generate_events(image, int(timestamp_us))
-        # # 保存事件数据
-        # # 保存事件数据（无论是否有事件都生成文件）
-        # event_filename = f"{os.path.splitext(img_name)[0]}.txt"
-        # file_path = os.path.join(event_dir, event_filename)
-        #
-        # if events is not None and len(events) > 0:
-        #     # 保存有效事件数据
-        #     np.savetxt(
-        #         file_path,
-        #         events,  # [timestamp, x, y, polarity]
-        #         fmt='%d %d %d %d',
-        #         delimiter=' ',
-        #         header='',
-        #         comments=''
-        #     )
-        # else:
-        #     with open(file_path, 'w') as f:
-        #         f.write("")  # 写入空内容
 
         event = sim.generate_events(image, int(timestamp_us))
 
