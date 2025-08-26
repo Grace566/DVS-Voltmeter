@@ -88,8 +88,8 @@ def process_dir(cfg, file_info, video_name):
     if events:
         events = np.concatenate(events, axis=0)
         # 直接保存为 .npy 文件
-        np.save(os.path.join(outdir, 'events.npy'), events)
-        print(f"Events saved to {os.path.join(outdir, 'events.npy')}")
+        np.save(os.path.join(outdir, '1.npy'), events)
+        print(f"Events saved to {os.path.join(outdir, '1.npy')}")
     else:
         print("No events generated.")
 
