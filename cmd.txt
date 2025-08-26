@@ -131,20 +131,24 @@ python generate_EventNeRF_LL.py 修改第16行代码
 OverExp_adjust_brightness
 
 #################################### 合成’1‘视角为事件的event-ZJU-MoCap数据集,用DVS-Voltmeter ####################################
-一、 暂时的，最后不用这个
+一、 暂时的，最后不用这个, Event Loss用的是这个 （所有event窜在一个npy文件）
 1.查看原视频fps，得到25fps
 python get_fps.py
 2.generate_ZJUMoCap.py: 从源目录(F:\Dataset\ZJU-MoCap_pre\CoreView_386\1)复制PNG图像到目标目录(F:\Dataset\ZJU-MoCap_pre\CoreView_386\Src_Img)，
 并生成包含每个图像路径和时间戳的info.txt文件。
 python generate_ZJUMoCap.py
-3.改src/config.py里面的目录， main.py生成事件(F:/Dataset/ZJU-MoCap_pre/CoreView_386/events/)
+3. 合并下面两步
+cd E:\PythonProject\DVS-Voltmeter
+conda activate dvs_voltmeter
+python main_zju_all.py
+(3.改src/config.py里面的目录， main.py生成事件(F:/Dataset/ZJU-MoCap_pre/CoreView_386/events/)
 cd E:\PythonProject\DVS-Voltmeter
 conda activate dvs_voltmeter
 python main.py
-4. txt2npy.py,将txt存成npy文件
+4. txt2npy.py,将txt存成npy文件)
 
 
-二、 真正的处理方式， 预处理放在ZJU-Mocap文件夹中
+二、 真正的处理方式， 预处理放在ZJU-Mocap文件夹中 （对应图像时间戳的事件）
 1.原视频fps为25fps
 2../ZJU-Mocap/generate_ZJUMoCap.py
 从源目录(F:\Dataset\ZJU-MoCap_pre\{seq}\1)复制PNG图像到目标目录(F:\Dataset\ZJU-MoCap_pre\{seq}\Src_Img)，

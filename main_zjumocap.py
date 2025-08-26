@@ -14,8 +14,11 @@ def get_args_from_command_line():
     parser = argparse.ArgumentParser(description='Parser of Runner of Network')
     parser.add_argument('--camera_type', type=str, help='Camera type, such as DVS346', default='DVS346')
     parser.add_argument('--model_para', type=float, nargs='+', help='Set parameters for a specific camera type', default=None)
+    # parser.add_argument('--seqs', type=str, nargs='+',
+    #                     default=['CoreView_377', 'CoreView_386', 'CoreView_387',
+    #                              'CoreView_392', 'CoreView_393', 'CoreView_394'])
     parser.add_argument('--seqs', type=str, nargs='+',
-                        default=['CoreView_377', 'CoreView_386', 'CoreView_387',
+                        default=['CoreView_377', 'CoreView_387',
                                  'CoreView_392', 'CoreView_393', 'CoreView_394'])
     parser.add_argument('--Dataset_dir', type=str, help='Set dataset root_path', default=None)
     args = parser.parse_args()
