@@ -47,8 +47,8 @@ __C.DIR                                 = edict()
 # __C.DIR.IN_PATH = 'H:/Dataset/EventNeRF/drums/train/Exposure/Ori/rgb_aperture'
 # __C.DIR.OUT_PATH = 'H:/Dataset/EventNeRF/drums/train/Exposure/Ori/exposure_events'
 
-__C.DIR.IN_PATH = 'F:/Dataset/ZJU-MoCap_pre/CoreView_377/Src_Img/'
-__C.DIR.OUT_PATH = 'F:/Dataset/ZJU-MoCap_pre/CoreView_377/events/'
+__C.DIR.IN_PATH = 'H:/Dataset/ZJU-MoCap_pre/CoreView_392/Src_Img/'
+__C.DIR.OUT_PATH = 'H:/Dataset/ZJU-MoCap_pre/CoreView_392/events/'
 
 __C.DIR.DATASET_ROOT = "H:/Dataset/ZJU-MoCap_pre"
 

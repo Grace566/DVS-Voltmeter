@@ -29,9 +29,11 @@ def get_args_from_command_line():
     parser.add_argument('--model_para', type=float, nargs='+', help='Set parameters for a specific camera type', default=None)
     parser.add_argument('--root_dir', type=str, help='Set dataset root directory', default="H:/Dataset/ZJU-MoCap_pre")
     # parser.add_argument('--seqs', type=str, nargs='+', help='List of sequences to process', default=['CoreView_377', 'CoreView_386', 'CoreView_387', 'CoreView_392', 'CoreView_393', 'CoreView_394'])
+    # parser.add_argument('--seqs', type=str, nargs='+', help='List of sequences to process',
+    #                     default=['CoreView_377', 'CoreView_387', 'CoreView_392', 'CoreView_393',
+    #                              'CoreView_394'])
     parser.add_argument('--seqs', type=str, nargs='+', help='List of sequences to process',
-                        default=['CoreView_377', 'CoreView_387', 'CoreView_392', 'CoreView_393',
-                                 'CoreView_394'])
+                        default=['CoreView_392'])
     args = parser.parse_args()
     return args
 
@@ -87,6 +89,7 @@ def process_dir(cfg, file_info, video_name):
 
     if events:
         events = np.concatenate(events, axis=0)
+        # np.savetxt(os.path.join(cfg.DIR.OUT_PATH, video_name + '.txt'), events, fmt='%1.0f')
         # 直接保存为 .npy 文件
         np.save(os.path.join(outdir, '1.npy'), events)
         print(f"Events saved to {os.path.join(outdir, '1.npy')}")
